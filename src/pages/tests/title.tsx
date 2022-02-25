@@ -11,7 +11,7 @@ type PageProps = {
 export default function Page({ title, description }: PageProps) {
   return (
     <>
-      <Header title={title} description={description} />
+      {/* <Header title={title} description={description} /> */}
 
       <Head>
         <title>Custom Page - {title}</title>

@@ -23,7 +23,7 @@ function Header({
       <div className={styles.wrap}>
         <div className={styles["title-wrap"]}>
           <p className={styles["site-title"]}>
-            <Link href="/">
+            <Link href="/" prefetch={false}>
               <a>{title}</a>
             </Link>
           </p>
@@ -35,14 +35,14 @@ function Header({
               const { label, url } = link;
               return (
                 <li key={`${label}$-menu`}>
-                  <Link href={url ?? ""}>
+                  <Link href={url ?? ""} prefetch={false}>
                     <a href={url}>{label}</a>
                   </Link>
                 </li>
               );
             })}
             <li>
-              <Link href="https://github.com/wpengine/faustjs">
+              <Link href="https://github.com/wpengine/faustjs" prefetch={false}>
                 <a
                   className="button"
                   href="https://github.com/wpengine/faustjs"

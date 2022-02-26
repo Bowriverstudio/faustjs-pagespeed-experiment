@@ -1,42 +1,40 @@
-import { getNextStaticProps, is404 } from '@faustjs/next';
-import { client, Post } from 'client';
-import { Footer, Header, Hero } from 'components';
-import { GetStaticPropsContext } from 'next';
-import Head from 'next/head';
+import { getNextStaticProps, is404 } from "@faustjs/next";
+import { client, Post } from "client";
+import { Footer, Header, Hero } from "components-woc";
+import { GetStaticPropsContext } from "next";
+import Head from "next/head";
 
 export interface PostProps {
-  post: Post | Post['preview']['node'] | null | undefined;
+  post: Post | Post["preview"]["node"] | null | undefined;
 }
 
 export function PostComponent({ post }: PostProps) {
   const { useQuery } = client;
-  const generalSettings = useQuery().generalSettings;
+  const { title, description } = useQuery().generalSettings;
+
+  const postTitle = post?.title();
+  const bgImage = post?.featuredImage?.node?.sourceUrl();
+  const html = post?.content() ?? "";
 
   return (
     <>
-      <Header
-        title={generalSettings.title}
-        description={generalSettings.description}
-      />
+      <Header title={title} description={description} />
 
       <Head>
         <title>
-          {post?.title()} - {generalSettings.title}
+          {postTitle} - {title}
         </title>
       </Head>
 
-      <Hero
-        title={post?.title()}
-        bgImage={post?.featuredImage?.node?.sourceUrl()}
-      />
+      <Hero title={postTitle} bgImage={bgImage} />
 
       <main className="content content-single">
         <div className="wrap">
-          <div dangerouslySetInnerHTML={{ __html: post?.content() ?? '' }} />
+          <div dangerouslySetInnerHTML={{ __html: html }} />
         </div>
       </main>
 
-      <Footer copyrightHolder={generalSettings.title} />
+      <Footer copyrightHolder={title} />
     </>
   );
 }
@@ -59,6 +57,6 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 export function getStaticPaths() {
   return {
     paths: [],
-    fallback: 'blocking',
+    fallback: "blocking",
   };
 }

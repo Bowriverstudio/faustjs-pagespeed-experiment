@@ -34,7 +34,8 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       description: client.client.query.generalSettings?.description,
     };
   });
-  console.log("BULIDING", title, description);
+
+  console.log(title, description);
 
   return getNextStaticProps(context, {
     Page,
